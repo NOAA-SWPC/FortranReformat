@@ -1,2 +1,2 @@
 # FortranReformat
-Simple script built around fprettify to automate enforcement of code formatting standards for our projects
+A simple script layer built around fprettify to automate enforcement of code formatting standards in fortran code projects.
