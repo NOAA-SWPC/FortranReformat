@@ -33,6 +33,8 @@ else
 fi
 
   
+timestamp=$( date +%Y_%m_%d_%H_%M )
+
 for file in $(find $dir -type f -name "*.f*");
 do
 
@@ -40,11 +42,21 @@ do
 
   # Remove all leading and trailing white spaces
   sed 's/^[[:blank:]]*//;s/[[:blank:]]*$//' < $file > temp.txt
-  mv temp.txt $1
+  mv temp.txt $file
 
   # Use fprettify to enforce indentation and white space standards.
-  fprettify --indent 2 $1
+  fprettify --indent 2 $file &>> prettify.${timestamp}.log
 
 done
+
+n_warnings=$(grep -i "WARNING" prettify.${timestamp}.log | wc -l)
+n_errors=$(grep -i "ERROR" prettify.${timestamp}.log | wc -l)
+
+echo ${n_warnings}" Warnings"
+echo ${n_errors}" Errors"
+
+echo "See log file : prettify.${timestamp}.log"
+
+
 
 
