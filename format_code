@@ -34,8 +34,34 @@ do
 
   echo $file
 
+
   findent -i2 -RR -C- < $file > temp.txt
   mv temp.txt $file
+
+  # Replace lower case intrinsics with upper case intrinsics
+  sed -i -e 's/subroutine/SUBROUTINE/Ig' $file
+  sed -i -e 's/function/FUNCTION/Ig' $file
+  sed -i -e 's/if/IF/Ig' $file
+  sed -i -e 's/then/THEN/Ig' $file
+  sed -i -e 's/do/DO/Ig' $file
+  sed -i -e 's/contains/CONTAINS/Ig' $file
+  sed -i -e 's/implicit none/IMPLICIT NONE/Ig' $file
+  sed -i -e 's/case/CASE/Ig' $file
+  sed -i -e 's/select/SELECT/Ig' $file
+  sed -i -e 's/real/REAL/Ig' $file
+  sed -i -e 's/integer/INTEGER/Ig' $file
+  sed -i -e 's/logical/LOGICAL/Ig' $file
+  sed -i -e 's/common/COMMON/Ig' $file
+  sed -i -e 's/use/USE/Ig' $file
+  sed -i -e 's/kind/KIND/Ig' $file
+  sed -i -e 's/print/PRINT/Ig' $file
+  sed -i -e 's/while/WHILE/Ig' $file
+  sed -i -e 's/exit/EXIT/Ig' $file
+  sed -i -e 's/stop/STOP/Ig' $file
+  sed -i -e 's/data/DATA/Ig' $file
+  sed -i -e 's/class/CLASS/Ig' $file
+  sed -i -e 's/type/TYPE/Ig' $file
+  sed -i -e 's/intent/INTENT/Ig' $file
   
 
 done
