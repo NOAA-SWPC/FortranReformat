@@ -2,15 +2,9 @@
 #
 # Software Requirements
 #
-#  * You must have fprettify and python installed. The easiest way to do this is through pip.
+#  * You must have findent installed.
 #      
-#        pip install --upgrade fprettify
-#
-#    Alternatively, visit the repository at github.com/pseewald/fprettify
-#
-# Usage : 
-#
-#   ./format_code /path/to/source/tree
+#      https://sourceforge.net/projects/findent/files/latest/download
 #
 #
 # ---------------------------------------------------------------------------------------------- #
@@ -40,22 +34,19 @@ do
 
   echo $file
 
-  # Remove all leading and trailing white spaces
-  sed 's/^[[:blank:]]*//;s/[[:blank:]]*$//' < $file > temp.txt
+  findent -i2 -RR -C- < $file > temp.txt
   mv temp.txt $file
-
-  # Use fprettify to enforce indentation and white space standards.
-  fprettify --indent 2 $file &>> prettify.${timestamp}.log
+  
 
 done
 
-n_warnings=$(grep -i "WARNING" prettify.${timestamp}.log | wc -l)
-n_errors=$(grep -i "ERROR" prettify.${timestamp}.log | wc -l)
+#n_warnings=$(grep -i "WARNING" prettify.${timestamp}.log | wc -l)
+#n_errors=$(grep -i "ERROR" prettify.${timestamp}.log | wc -l)
 
-echo ${n_warnings}" Warnings"
-echo ${n_errors}" Errors"
+#echo ${n_warnings}" Warnings"
+#echo ${n_errors}" Errors"
 
-echo "See log file : prettify.${timestamp}.log"
+#echo "See log file : prettify.${timestamp}.log"
 
 
 
