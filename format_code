@@ -1,14 +1,33 @@
 #!/bin/bash
+#
+# Software Requirements
+#
+#  * You must have fprettify and python installed. The easiest way to do this is through pip.
+#      
+#        pip install --upgrade fprettify
+#
+#    Alternatively, visit the repository at github.com/pseewald/fprettify
+#
+# Usage : 
+#
+#   ./format_code /path/to/source/tree
+#
+#
+# ---------------------------------------------------------------------------------------------- #
 
+
+# Check to see if a directory is supplied in the command line
 if [ -z $1 ]
 then
 
+  # If not present, use the current directory
   echo "No directory supplied"
   echo "Recursively searching current directory for *.f* files"
   dir=./
 
 else
 
+  # Otherwise use the command line argument
   dir=$1
 
 fi
@@ -18,9 +37,12 @@ for file in $(find $dir -type f -name "*.f*");
 do
 
   echo $file
+
+  # Remove all leading and trailing white spaces
   sed 's/^[[:blank:]]*//;s/[[:blank:]]*$//' < $file > temp.txt
-  
   mv temp.txt $1
+
+  # Use fprettify to enforce indentation and white space standards.
   fprettify --indent 2 $1
 
 done
